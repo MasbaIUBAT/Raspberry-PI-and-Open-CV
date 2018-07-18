@@ -1,0 +1,40 @@
+
+
+Due to bug in the recording software no audio has been 
+recorded from 13:09 to 22:17 min of the video.
+Now I will be explaining what I've done in between this period.
+##############################################################
+cd opencv
+
+mkdir build
+
+cd build
+##############################################################
+After installing scipy and scikit-image successfully. I browsed
+into opencv folder and created a folder using mkdir, with the
+build and again browsed into that folder. 
+##############################################################
+cmake -D CMAKE_BUILD_TYPE=RELEASE 
+\-D CMAKE_INSTALL_PREFIX=/usr/local 
+\-D INSTALL_PYTHON_EXAMPLES=ON 
+\-D WITH_V4L=ON 
+\-D INSTALL_CREATE_DISTRIB=ON 
+\-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules 
+\-D BUILD_opencv_python3=ON 
+\-D BUILD_EXAMPLES=ON ..
+##############################################################
+Using the cmake module that we've installed earlier, now we'll
+make ready the configuration file for opencv. Just copy the
+lines from 137 to 144 from Raspberry-Pi-3-OpenCV-3.4-Config.txt
+file and paste it in the terminal. Pressing enter, it will 
+start loading the configuration for your system. After loading
+the configuration successfully, now we can have a look at the
+output if all necessary modules has been found successfully,
+for example: python3, numpy, vl4 driver etc.
+##############################################################
+sudo make
+##############################################################
+In this moment the audio has been re-initiated. Follow the
+video now. 
+Sorry for the trouble :) :) :)
+

@@ -1,0 +1,51 @@
+country=BD
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+        ssid="OpenCV"
+        psk="commando12345"
+        key_mgmt=WPA-PSK
+}
+
+
+pcmanfm &
+
+sudo raspi-config
+
+sudo apt-get update
+
+sudo apt-get dist-upgrade (Not now)
+
+sudo apt-get install samba samba-common-bin
+
+sudo nano /etc/samba/smb.conf
+
+Samba Configuration:
+[Pi Home]
+   comment= Pi Home
+   path=/home/pi
+   browseable= yes
+   writeable= yes
+   guest ok = yes
+   only guest= no
+   create mask= 0777
+   directory mask= 0777
+   public= yes
+   read only= no
+   force create mode = 0777
+   force directory mode = 0777
+   force user = pi
+
+Ctrl+X
+   
+sudo smbpasswd -a pi
+
+sudo /etc/init.d/samba restart
+
+
+
+
+
+
+

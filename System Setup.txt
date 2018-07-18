@@ -1,0 +1,75 @@
+WeMos D1 Setup in Arduino IDE:
+After connecting WeMos D1 to pc, CH340 USB interface should installed.
+Then open the Arduino IDE and go to perference and add the following link in the additional board manager urls:
+http://arduino.esp8266.com/stable/package_esp8266com_index.json
+Now go to Board Manager in Tools and download & install esp8266 board library
+Now open the code for Wemos named "Wemos dataup.ino"
+Edit the ssid and password according to your WiFi network in WiFiMulti.addAP();
+Add the raspberry pi hostname in the http.begin();
+upload the code in WeMos selecting "WeMos D1 R2 & mini" in board, Upload speed 115200 and proper com port.
+After finishing the upload your WeMos is ready to go.
+
+Raspberry Pi Setup:
+
+After setting up the operating system Raspbian in Raspberry Pi and establishing connection with WiFi the Apache Server and php needed to be installed.
+**** Installing server & php ****
+
+Apply the following command in the terminal
+sudo apt-get update
+sudo apt-get dist-upgrade
+sudo apt-get install apache2 apache2-utils -y
+sudo apt-get install libapache2-mod-php php php-pear php-common php-cgi -y
+sudo lighty-enable-mod fastcgi-php -y
+sudo reboot
+//Continue after reboot\\
+sudo chown www-data:www-data /var/www
+sudo chown www-data:www-data /var/www/html
+sudo chmod 775 /var/www // permission to write to this directory
+sudo usermod -a -G www-data pi //add “pi” user to the “www-data” group
+sudo reboot
+
+Now the server is installed, it is time to apply the code,
+cd /var/www/html
+sudo nano readdata.php
+now paste the code in readdata.php file here.
+Press Ctrl+O and then Ctrl+X.
+
+Now apply the following code
+sudo chmod 755 readdata.php //make your file executable
+sudo chown www-data:www-data /var/www/html/readdata.php
+
+sudo chown www-data:www-data /var/www/html
+
+sudo reboot
+
+After reboot your Raspberry in ready to write the medical data in the report.csv file.
+
+**** Creating auto html file and writing the data ****
+paste the sensor.py file in the /home/pi/ directory
+now apply the following commands in the terminal
+
+sudo touch /var/www/html/temps.html
+sudo chmod 775 /var/www/html/temps.html
+sudo chown www-data:www-data /var/www/html/temps.html
+
+chmod 755 /home/pi/sensor.py 
+
+then check that it works (once you have some data in /var/www/html/report.csv)
+
+python3 /home/pi/sensor.py
+
+If it does then apply the following command in the terminal
+
+crontab -e
+
+A file will open in the terminal and add line in the below of the file including the '*' symbols
+
+* * * * * /usr/bin/python /home/pi/sensor.py
+
+**** Now let's check the output ****
+browse the following link
+
+http://hostname/temps.html (hostname is the hostname of your raspberry pi)
+
+
+
